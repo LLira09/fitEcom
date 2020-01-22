@@ -1,5 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const morgan = require('morgan');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 require('dotenv').config();
 // Import Routes
 const userRoutes = require('./routes/user');
@@ -15,6 +18,11 @@ mongoose
     useUnifiedTopology: true
   })
   .then(() => console.log('Database Connected'));
+
+// middleware
+app.use(morgan('dev'));
+app.use(bodyParser.json());
+app.use(cookieParser());
 
 // Routes middleware
 app.use('/api', userRoutes);
